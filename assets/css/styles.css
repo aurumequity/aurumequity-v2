@@ -451,3 +451,64 @@ svg {
     font-size: 12px;
   }
 }
+
+/* Pactura dramatic tech gradient, readable cards */
+:root {
+  --bg: #ffffff;
+  --soft: #f5f7fb;
+
+  /* New gradient tokens */
+  --grad-a: #050b1a;
+  --grad-b: #071a3a;
+  --grad-c: #0b2a6b;
+  --grad-d: #0aa6c8;
+}
+
+/* Make the hero feel more dramatic */
+.hero {
+  position: relative;
+  color: #ffffff;
+  background:
+    radial-gradient(1200px 700px at 18% 25%, rgba(10, 166, 200, 0.36), rgba(10, 166, 200, 0) 60%),
+    radial-gradient(900px 600px at 82% 28%, rgba(11, 42, 107, 0.55), rgba(11, 42, 107, 0) 55%),
+    linear-gradient(
+      135deg,
+      var(--grad-a) 0%,
+      var(--grad-b) 28%,
+      var(--grad-c) 62%,
+      rgba(10, 166, 200, 0.35) 100%
+    );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Keep hero text crisp */
+.hero .subhead {
+  color: rgba(255, 255, 255, 0.88);
+}
+.hero .tagline {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Ensure buttons stay readable on dark hero */
+.hero .btn {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+.hero .btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+/* Cards stay visible with a subtle glass effect */
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(216, 221, 230, 0.9);
+  box-shadow: 0 10px 26px rgba(5, 11, 26, 0.08);
+}
+
+/* Optional, give sections a faint tech tint without distracting */
+.section {
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(10, 166, 200, 0.08), rgba(10, 166, 200, 0) 60%),
+    radial-gradient(800px 520px at 85% 10%, rgba(11, 42, 107, 0.06), rgba(11, 42, 107, 0) 55%);
+}
