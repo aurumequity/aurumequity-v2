@@ -36,6 +36,7 @@ body {
 }
 
 body::before {
+  z-index: 0;
   content: '';
   position: absolute;
   inset: 0;
@@ -61,21 +62,73 @@ a:hover {
   margin: 0 auto;
 }
 
+/* Header layout: logo + nav + CTA */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  background: rgba(11, 16, 32, 0.78);
   backdrop-filter: blur(10px);
-  background: rgba(8, 10, 18, 0.65);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
   gap: 16px;
+  padding: 12px 0;
+}
+
+/* left cluster = brand + nav */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 8px 10px;
+  border-radius: 12px;
+  line-height: 1;
+}
+
+/* right cluster = top CTA */
+.header-cta {
+  flex: 0 0 auto;
+}
+
+/* Mobile: stack cleanly */
+@media (max-width: 900px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-left {
+    justify-content: space-between;
+  }
+  .nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
 }
 
 .brand {
@@ -83,17 +136,6 @@ a:hover {
   letter-spacing: 0.3px;
 }
 
-.nav {
-  display: flex;
-  gap: 18px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.nav a {
-  padding: 8px 10px;
-  border-radius: 12px;
-}
 .nav a:hover {
   background: rgba(255, 255, 255, 0.06);
   text-decoration: none;
@@ -258,7 +300,10 @@ svg {
 
 .logo {
   height: 32px;
-  width: 100px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
 }
 
 .card a {
@@ -330,64 +375,6 @@ svg {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Header layout: logo + nav + CTA */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 0;
-}
-
-/* left cluster = brand + nav */
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.nav a {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-/* right cluster = top CTA */
-.header-cta {
-  flex: 0 0 auto;
-}
-
-/* Mobile: stack cleanly */
-@media (max-width: 900px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .header-left {
-    justify-content: space-between;
-  }
-  .nav {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 6px;
-  }
-}
-
 /* =========================
    Responsive breakpoints
    ========================= */
@@ -420,20 +407,24 @@ svg {
 }
 
 @media (max-width: 900px) {
-  .nav {
-    display: none;
-  }
   .header-inner {
-    padding: 12px 0;
+    flex-direction: column;
+    align-items: stretch;
   }
-  .hero {
-    padding: 56px 0 36px;
+  .header-left {
+    justify-content: space-between;
   }
-  .section {
-    padding: 46px 0;
+  .nav {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
   }
-  .grid-3 {
-    grid-template-columns: 1fr;
+  .nav a {
+    flex: 0 0 auto;
   }
 }
 
@@ -508,65 +499,4 @@ svg {
   .footer-meta {
     font-size: 12px;
   }
-}
-
-/* Pactura dramatic tech gradient, readable cards */
-:root {
-  --bg: #ffffff;
-  --soft: #f5f7fb;
-
-  /* New gradient tokens */
-  --grad-a: #050b1a;
-  --grad-b: #071a3a;
-  --grad-c: #0b2a6b;
-  --grad-d: #0aa6c8;
-}
-
-/* Make the hero feel more dramatic */
-.hero {
-  position: relative;
-  color: #ffffff;
-  background:
-    radial-gradient(1200px 700px at 18% 25%, rgba(10, 166, 200, 0.36), rgba(10, 166, 200, 0) 60%),
-    radial-gradient(900px 600px at 82% 28%, rgba(11, 42, 107, 0.55), rgba(11, 42, 107, 0) 55%),
-    linear-gradient(
-      135deg,
-      var(--grad-a) 0%,
-      var(--grad-b) 28%,
-      var(--grad-c) 62%,
-      rgba(10, 166, 200, 0.35) 100%
-    );
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Keep hero text crisp */
-.hero .subhead {
-  color: rgba(255, 255, 255, 0.88);
-}
-.hero .tagline {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Ensure buttons stay readable on dark hero */
-.hero .btn {
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-}
-.hero .btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-/* Cards stay visible with a subtle glass effect */
-.card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(216, 221, 230, 0.9);
-  box-shadow: 0 10px 26px rgba(5, 11, 26, 0.08);
-}
-
-/* Optional, give sections a faint tech tint without distracting */
-.section {
-  background:
-    radial-gradient(900px 520px at 15% 0%, rgba(10, 166, 200, 0.08), rgba(10, 166, 200, 0) 60%),
-    radial-gradient(800px 520px at 85% 10%, rgba(11, 42, 107, 0.06), rgba(11, 42, 107, 0) 55%);
 }
